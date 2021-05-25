@@ -5,11 +5,14 @@ public class Room extends Fixture {
 
   public Room(String name, String shortDescription, String longDescription) {
     super(name, shortDescription, longDescription);
-    this.exits = new Room[] {};
   }
 
   public Room[] getExits() {
     return exits;
+  }
+
+  public void setExits(Room[] exits) {
+    this.exits = exits;
   }
 
   public Room getExit(String direction) throws Exception {
