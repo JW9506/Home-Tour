@@ -1,6 +1,6 @@
 #!/bin/bash
 
-target="src/com/java/Main"
+target="src/game/Main"
 if [ $# == 1 ]; then
   target=$1
 fi

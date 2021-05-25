@@ -5,6 +5,7 @@ import fixtures.Room;
 public class RoomManager {
   public static Room startingRoom;
   public static Room[] rooms;
+  private RoomManager() {}
 
   public static void init() {
     Room foyer = new Room("The Foyer", "a small foyer",
