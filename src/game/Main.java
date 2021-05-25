@@ -2,6 +2,7 @@ package game;
 
 import java.util.Scanner;
 
+import exceptions.InvalidDirection;
 import fixtures.Room;
 
 public class Main {
@@ -13,8 +14,7 @@ public class Main {
     player.setCurrentRoom(RoomManager.startingRoom);
     // printRoom(player);
     while (true) {
-      System.out.print("\nYou are in ");
-      System.out.println(player.getCurrentRoom().getName());
+      System.out.println("You are in " + player.getCurrentRoom().getName());
       try {
         Room[] rooms = player.getCurrentRoom().getExits();
         for (int i = 0; i < rooms.length; ++i) {
@@ -38,14 +38,16 @@ public class Main {
               direction = "West";
               break;
           }
-          System.out.print(direction + ": ");
-          System.out.println(rooms[i].getName());
+          System.out.println(direction + ": " + (rooms[i].getName()));
         }
         parse(collectInput(), player);
         System.out.println(player.getCurrentRoom().getName());
+      } catch (InvalidDirection e) {
+        System.out.println(e.getMessage());
       } catch (Exception e) {
         sc.next();
       }
+      System.out.println();
     }
   }
 
@@ -64,9 +66,9 @@ public class Main {
     return input.split(" ");
   }
 
-  private static void parse(String[] command, Player player) throws Exception {
+  private static void parse(String[] command, Player player) throws InvalidDirection {
     if (command.length < 2) {
-      throw new Exception();
+      throw new InvalidDirection("Invalid command, use \"go [direction]\"");
     }
     player.setCurrentRoom(player.getCurrentRoom().getExit(command[1]));
   }
