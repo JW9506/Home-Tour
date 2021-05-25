@@ -23,22 +23,22 @@ public class Room extends Fixture {
         throw new InvalidDirection("You have chosen an invalid direction, please try again");
       case "north":
         if (exits[0] == null) {
-          throw new InvalidDirection("The north side is a wall");
+          throw new InvalidDirection("north");
         }
         return exits[0];
       case "east":
         if (exits[1] == null) {
-          throw new InvalidDirection("The east side is a wall");
+          throw new InvalidDirection("east");
         }
         return exits[1];
       case "south":
         if (exits[2] == null) {
-          throw new InvalidDirection("The south side is a wall");
+          throw new InvalidDirection("south");
         }
         return exits[2];
       case "west":
         if (exits[3] == null) {
-          throw new InvalidDirection("The west side is a wall");
+          throw new InvalidDirection("west");
         }
         return exits[3];
     }

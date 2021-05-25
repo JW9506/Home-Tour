@@ -22,21 +22,10 @@ public class Main {
             continue;
           }
           String direction = "";
-          switch (i) {
-            default:
-              throw new Exception("Invalid room count for " + rooms[i].getName());
-            case 0:
-              direction = "North";
-              break;
-            case 1:
-              direction = "East";
-              break;
-            case 2:
-              direction = "South";
-              break;
-            case 3:
-              direction = "West";
-              break;
+          if (!RoomManager.directionMap.containsKey(i)) {
+            throw new Exception("Invalid room count for " + rooms[i].getName());
+          } else {
+            direction = RoomManager.directionMap.get(i);
           }
           System.out.println(direction + ": " + (rooms[i].getName()));
         }

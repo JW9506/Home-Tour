@@ -1,10 +1,21 @@
 package game;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import fixtures.Room;
 
 public class RoomManager {
   public static Room startingRoom;
   public static Room[] rooms;
+  final public static Map<Integer, String> directionMap = new HashMap<Integer, String>() {
+    {
+      put(0, "North");
+      put(1, "East");
+      put(2, "South");
+      put(3, "West");
+    }
+  };
 
   private RoomManager() {
   }
