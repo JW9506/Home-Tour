@@ -1,8 +1,0 @@
-#!/bin/bash
-
-target="src/game/Main"
-if [ $# == 1 ]; then
-  target=$1
-fi
-
-./clean && ./run-base $target
