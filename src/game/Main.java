@@ -12,11 +12,14 @@ public class Main {
     RoomManager.init();
     Player player = new Player();
     player.setCurrentRoom(RoomManager.startingRoom);
-    // printRoom(player);
+
     while (true) {
-      System.out.println("You are in " + player.getCurrentRoom().getName());
+      Room currRoom = player.getCurrentRoom();
+      System.out.println("You are in " + currRoom.getName());
+      System.out.println("\n" + currRoom.getLongDescription());
+      System.out.println("\n" + "Exits:");
       try {
-        Room[] rooms = player.getCurrentRoom().getExits();
+        Room[] rooms = currRoom.getExits();
         for (int i = 0; i < rooms.length; ++i) {
           if (rooms[i] == null) {
             continue;
@@ -27,16 +30,15 @@ public class Main {
           } else {
             direction = RoomManager.directionMap.get(i);
           }
-          System.out.println(direction + ": " + (rooms[i].getName()));
+          System.out.println("\t" + direction + ": " + (rooms[i].getName()));
         }
         parse(collectInput(), player);
-        System.out.println(player.getCurrentRoom().getName());
       } catch (InvalidDirection e) {
         System.out.println(e.getMessage());
       } catch (Exception e) {
         sc.next();
       }
-      System.out.println();
+      System.out.println(new String(new char[80]).replace("\0", "-"));
     }
   }
 
@@ -49,7 +51,7 @@ public class Main {
     try {
       input = sc.nextLine();
     } catch (Exception e) {
-      System.out.println("Thank you for visiting");
+      System.out.println("\nThank you for visiting");
       System.exit(0);
     }
     return input.split(" ");
