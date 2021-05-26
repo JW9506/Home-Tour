@@ -23,7 +23,9 @@ public class RoomManager {
     diningRoom.setExits("north", foyer);
 
     smallRoom.setExits("south", foyer);
+    foyer.addItem(new Item("Paper", "a sheet of paper", "this is a sheet of plain paper"));
     smallRoom.addItem(new Item("Book", "a novel", "this is an interesting novel"));
+    diningRoom.addItem(new Item("Pen", "a blue pen", "this is an expensive blue pen"));
 
     startingRoom = foyer;
   }

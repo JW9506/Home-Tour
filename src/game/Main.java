@@ -3,6 +3,9 @@ package game;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
+
+import common.StringUtils;
+
 import java.util.Scanner;
 
 import exceptions.InvalidCommand;
@@ -14,6 +17,7 @@ public class Main {
   private static Scanner sc = new Scanner(System.in);
 
   public static void main(String[] args) {
+    System.out.println("\t".length());
     RoomManager.init();
     Player player = new Player();
     player.setCurrentRoom(RoomManager.startingRoom);
@@ -24,7 +28,7 @@ public class Main {
       System.out.println("\t\t\t\t\t\tview  inventory");
       System.out.println("\t\t\t\t\t\tplace [item]");
       Room currRoom = player.getCurrentRoom();
-      System.out.println("You are in " + currRoom.getName());
+      System.out.println("You're in " + currRoom.getName());
       System.out.println("\n" + currRoom.getLongDescription());
       try {
         Map<String, Room> rooms = currRoom.getExits();
@@ -46,7 +50,7 @@ public class Main {
       } catch (InvalidCommand e) {
         System.out.println(e.getMessage());
       }
-      System.out.println(new String(new char[80]).replace("\0", "-"));
+      System.out.println(StringUtils.repeat('-', 80));
     }
   }
 
@@ -89,14 +93,17 @@ public class Main {
       case "view":
         if ("inventory".startsWith(command[1].toLowerCase())) {
           List<Item> inv = player.getInventory();
-          System.out.println("\nYou have:");
+          System.out.println(StringUtils.repeat('_', 80));
+          System.out.println("|You have:" + StringUtils.repeat(' ', 69) + "|");
           if (inv.isEmpty()) {
-            System.out.println("\tYour inventory is empty.");
+            System.out.println(StringUtils.prettify("Your inventory is empty."));
           } else {
             for (Item item : inv) {
-              System.out.println("\t" + item.getName());
+              int rightSpace = item.getName().length();
+              System.out.println("|\t" + item.getName() + StringUtils.repeat(' ', 71 - rightSpace) + "|");
             }
           }
+          System.out.println(StringUtils.repeat('-', 80));
         }
         break;
       case "place":
