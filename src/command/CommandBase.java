@@ -7,17 +7,17 @@ public abstract class CommandBase {
   public abstract void action(Player player, String entity) throws InvalidCommand;
 
   public static CommandBase getCommand(String command) throws InvalidCommand {
-    switch (command.toLowerCase().intern()) {
-      case "go":
-        return Go.instance;
-      case "take":
-        return Take.instance;
-      case "place":
-        return Place.instance;
-      case "view":
-        return View.instance;
-      default:
-        throw new InvalidCommand("Invalid command " + command);
+    String _command = command.toLowerCase().intern();
+    if ("go".startsWith(_command)) {
+      return Go.instance;
+    } else if ("take".startsWith(_command)) {
+      return Take.instance;
+    } else if ("place".startsWith(_command)) {
+      return Place.instance;
+    } else if ("view".startsWith(_command)) {
+      return View.instance;
+    } else {
+      throw new InvalidCommand("Invalid command " + command);
     }
   }
 }

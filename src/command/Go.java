@@ -15,7 +15,7 @@ public class Go extends CommandBase {
     try {
       player.setCurrentRoom(player.getCurrentRoom().getExit(entity));
     } catch (InvalidDirection e) {
-      System.out.println(e.getMessage());
+      System.out.println("\n\t\tError: " + e.getMessage() + "\n");
     }
   }
 }

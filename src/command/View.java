@@ -28,6 +28,8 @@ public class View extends CommandBase {
         }
       }
       System.out.println(StringUtils.repeat('-', 80));
+    } else {
+      throw new InvalidCommand(entity + " is not a valid entity to be viewed");
     }
   }
 }

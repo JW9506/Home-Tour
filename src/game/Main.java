@@ -20,10 +20,10 @@ public class Main {
     player.setCurrentRoom(RoomManager.startingRoom);
 
     while (true) {
-      System.out.println("\t\t\t\t\t\tgo   [direction]");
-      System.out.println("\t\t\t\t\t\ttake [item]");
-      System.out.println("\t\t\t\t\t\tview  inventory");
-      System.out.println("\t\t\t\t\t\tplace [item]");
+      System.out.println("\t\t\t\t\t\tt[ake]  ITEM");
+      System.out.println("\t\t\t\t\t\tg[o]    DIRECTION");
+      System.out.println("\t\t\t\t\t\tp[lace] ITEM");
+      System.out.println("\t\t\t\t\t\tv[iew]  i[nventory]");
       Room currRoom = player.getCurrentRoom();
       System.out.println("You're in " + currRoom.getName());
       System.out.println("\n" + currRoom.getLongDescription());
@@ -43,7 +43,7 @@ public class Main {
         parse(collectInput(), player);
         System.out.println();
       } catch (InvalidCommand e) {
-        System.out.println(e.getMessage());
+        System.out.println("\n\t\tError: " + e.getMessage() + "\n");
       }
       System.out.println(StringUtils.repeat('-', 10) + "Welcome to" + StringUtils.repeat('-', 60));
       System.out.println(StringUtils.repeat('-', 19) + "Home Tour" + StringUtils.repeat('-', 52));

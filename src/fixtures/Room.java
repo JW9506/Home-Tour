@@ -38,6 +38,11 @@ public class Room extends Fixture {
 
   public Room getExit(String direction) throws InvalidDirection {
     direction = direction.toLowerCase().intern();
+    for (String k : exits.keySet()) {
+      if (k.startsWith(direction)) {
+        direction = k;
+      }
+    }
     if (!exits.containsKey(direction)) {
       throw new InvalidDirection(direction);
     } else {
