@@ -7,6 +7,7 @@ import java.util.Scanner;
 
 import command.CommandBase;
 import common.StringUtils;
+import common.Utils;
 import exceptions.InvalidCommand;
 import fixtures.Item;
 import fixtures.Room;
@@ -20,6 +21,9 @@ public class Main {
     player.setCurrentRoom(RoomManager.startingRoom);
 
     while (true) {
+      Utils.clearScreen();
+      System.out.println(StringUtils.repeat('-', 10) + "Welcome to" + StringUtils.repeat('-', 60));
+      System.out.println(StringUtils.repeat('-', 19) + "Home Tour" + StringUtils.repeat('-', 52));
       System.out.println("\t\t\t\t\t\tt[ake]  ITEM");
       System.out.println("\t\t\t\t\t\tg[o]    DIRECTION");
       System.out.println("\t\t\t\t\t\tp[lace] ITEM");
@@ -41,12 +45,16 @@ public class Main {
           }
         }
         parse(collectInput(), player);
-        System.out.println();
       } catch (InvalidCommand e) {
         System.out.println("\n\t\tError: " + e.getMessage() + "\n");
+      } finally {
+        System.out.println("\nHit Enter to Continue...");
+        try {
+          sc.nextLine();
+        } catch (Exception e) {
+          Utils.Exit();
+        }
       }
-      System.out.println(StringUtils.repeat('-', 10) + "Welcome to" + StringUtils.repeat('-', 60));
-      System.out.println(StringUtils.repeat('-', 19) + "Home Tour" + StringUtils.repeat('-', 52));
     }
   }
 
@@ -59,8 +67,7 @@ public class Main {
     try {
       input = sc.nextLine();
     } catch (Exception e) {
-      System.out.println("\nThank you for visiting");
-      System.exit(0);
+      Utils.Exit();
     }
     return input.split(" ");
   }
