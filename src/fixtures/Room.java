@@ -4,9 +4,18 @@ import exceptions.InvalidDirection;
 
 public class Room extends Fixture {
   private Room[] exits = null;
+  private Item[] items = null;
 
   public Room(String name, String shortDescription, String longDescription) {
     super(name, shortDescription, longDescription);
+  }
+
+  public Item[] getItems() {
+    return items;
+  }
+
+  public void setItems(Item[] items) {
+    this.items = items;
   }
 
   public Room[] getExits() {

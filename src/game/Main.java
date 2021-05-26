@@ -3,6 +3,7 @@ package game;
 import java.util.Scanner;
 
 import exceptions.InvalidDirection;
+import fixtures.Item;
 import fixtures.Room;
 
 public class Main {
@@ -17,26 +18,29 @@ public class Main {
       Room currRoom = player.getCurrentRoom();
       System.out.println("You are in " + currRoom.getName());
       System.out.println("\n" + currRoom.getLongDescription());
-      System.out.println("\n" + "Exits:");
       try {
         Room[] rooms = currRoom.getExits();
+        System.out.println("\n" + "Exits:");
         for (int i = 0; i < rooms.length; ++i) {
           if (rooms[i] == null) {
             continue;
           }
           String direction = "";
-          if (!RoomManager.directionMap.containsKey(i)) {
-            throw new Exception("Invalid room count for " + rooms[i].getName());
-          } else {
-            direction = RoomManager.directionMap.get(i);
+          direction = RoomManager.directionMap.get(i);
+          if (direction != null) {
+            System.out.println("\t" + direction + ": " + (rooms[i].getName()));
           }
-          System.out.println("\t" + direction + ": " + (rooms[i].getName()));
+        }
+        Item[] items = currRoom.getItems();
+        if (items != null) {
+          System.out.println("\n" + "Items:");
+          for (int i = 0; i < items.length; ++i) {
+            System.out.println("\t" + items[i].getName());
+          }
         }
         parse(collectInput(), player);
       } catch (InvalidDirection e) {
         System.out.println(e.getMessage());
-      } catch (Exception e) {
-        sc.next();
       }
       System.out.println(new String(new char[80]).replace("\0", "-"));
     }
