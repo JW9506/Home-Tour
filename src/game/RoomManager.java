@@ -23,7 +23,7 @@ public class RoomManager {
     diningRoom.setExits("north", foyer);
 
     smallRoom.setExits("south", foyer);
-    smallRoom.setItems(new Item[] { new Item("Piano", "a small piano", "this is a small piano") });
+    smallRoom.addItem(new Item("Book", "a novel", "this is an interesting novel"));
 
     startingRoom = foyer;
   }
