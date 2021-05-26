@@ -1,6 +1,8 @@
 package command;
 
 import java.util.List;
+import java.util.Map;
+import java.util.Map.Entry;
 
 import common.StringUtils;
 import exceptions.InvalidCommand;
@@ -22,9 +24,12 @@ public class View extends CommandBase {
       if (inv.isEmpty()) {
         System.out.println(StringUtils.prettify("Your inventory is empty."));
       } else {
-        for (Item item : inv) {
-          int rightSpace = item.getName().length();
-          System.out.println("|\t" + item.getName() + StringUtils.repeat(' ', 71 - rightSpace) + "|");
+        Map<Item, Integer> itemDist = player.getInventoryItemDistribution();
+        for (Entry<Item, Integer> item : itemDist.entrySet()) {
+          String name = item.getKey().getName();
+          String str = "\t" + name + " x " + item.getValue();
+          int rightSpace = str.length();
+          System.out.println("|\t" + str + StringUtils.repeat(' ', 64 - rightSpace) + "|");
         }
       }
       System.out.println(StringUtils.repeat('-', 80));
