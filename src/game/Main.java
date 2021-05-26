@@ -1,7 +1,10 @@
 package game;
 
+import java.util.Map;
+import java.util.Map.Entry;
 import java.util.Scanner;
 
+import exceptions.InvalidCommand;
 import exceptions.InvalidDirection;
 import fixtures.Item;
 import fixtures.Room;
@@ -19,17 +22,10 @@ public class Main {
       System.out.println("You are in " + currRoom.getName());
       System.out.println("\n" + currRoom.getLongDescription());
       try {
-        Room[] rooms = currRoom.getExits();
+        Map<String, Room> rooms = currRoom.getExits();
         System.out.println("\n" + "Exits:");
-        for (int i = 0; i < rooms.length; ++i) {
-          if (rooms[i] == null) {
-            continue;
-          }
-          String direction = "";
-          direction = RoomManager.directionMap.get(i);
-          if (direction != null) {
-            System.out.println("\t" + direction + ": " + (rooms[i].getName()));
-          }
+        for (Entry<String, Room> e : rooms.entrySet()) {
+          System.out.println("\t" + e.getKey().toUpperCase() + ": " + e.getValue().getName());
         }
         Item[] items = currRoom.getItems();
         if (items != null) {
@@ -40,6 +36,8 @@ public class Main {
         }
         parse(collectInput(), player);
       } catch (InvalidDirection e) {
+        System.out.println(e.getMessage());
+      } catch (InvalidCommand e) {
         System.out.println(e.getMessage());
       }
       System.out.println(new String(new char[80]).replace("\0", "-"));
@@ -61,9 +59,9 @@ public class Main {
     return input.split(" ");
   }
 
-  private static void parse(String[] command, Player player) throws InvalidDirection {
+  private static void parse(String[] command, Player player) throws InvalidDirection, InvalidCommand {
     if (command.length < 2) {
-      throw new InvalidDirection("Invalid command, use \"go [direction]\"");
+      throw new InvalidCommand("Invalid command, use \"go [direction]\"");
     }
     player.setCurrentRoom(player.getCurrentRoom().getExit(command[1]));
   }
