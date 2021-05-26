@@ -37,7 +37,7 @@ public class Room extends Fixture {
   }
 
   public Room getExit(String direction) throws InvalidDirection {
-    direction = direction.toLowerCase();
+    direction = direction.toLowerCase().intern();
     if (!exits.containsKey(direction)) {
       throw new InvalidDirection(direction);
     } else {

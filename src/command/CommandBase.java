@@ -7,7 +7,7 @@ public abstract class CommandBase {
   public abstract void action(Player player, String entity) throws InvalidCommand;
 
   public static CommandBase getCommand(String command) throws InvalidCommand {
-    switch (command.toLowerCase()) {
+    switch (command.toLowerCase().intern()) {
       case "go":
         return Go.instance;
       case "take":

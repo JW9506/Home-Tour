@@ -15,7 +15,7 @@ public class View extends CommandBase {
 
   @Override
   public void action(Player player, String entity) throws InvalidCommand {
-    if ("inventory".startsWith(entity.toLowerCase())) {
+    if ("inventory".startsWith(entity.toLowerCase().intern())) {
       List<Item> inv = player.getInventory();
       System.out.println(StringUtils.repeat('_', 80));
       System.out.println("|You have:" + StringUtils.repeat(' ', 69) + "|");

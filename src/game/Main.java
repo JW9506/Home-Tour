@@ -31,7 +31,7 @@ public class Main {
         Map<String, Room> rooms = currRoom.getExits();
         System.out.println("\n" + "Exits:");
         for (Entry<String, Room> e : rooms.entrySet()) {
-          System.out.println("\t" + e.getKey().toUpperCase() + ": " + e.getValue().getName());
+          System.out.println("\t" + e.getKey().toUpperCase().intern() + ": " + e.getValue().getName());
         }
         List<Item> items = currRoom.getItems();
         if (!items.isEmpty()) {
