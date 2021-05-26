@@ -32,6 +32,9 @@ public class Player {
 
   public void removeFromInventory(Item item) {
     inventoryItemDistribution.put(item, inventoryItemDistribution.get(item) - 1);
+    if (inventoryItemDistribution.get(item) == 0) {
+      inventoryItemDistribution.remove(item);
+    }
     inventory.remove(item);
   }
 
