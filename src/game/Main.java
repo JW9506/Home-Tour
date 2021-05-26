@@ -3,13 +3,11 @@ package game;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
-
-import common.StringUtils;
-
 import java.util.Scanner;
 
+import command.CommandBase;
+import common.StringUtils;
 import exceptions.InvalidCommand;
-import exceptions.InvalidDirection;
 import fixtures.Item;
 import fixtures.Room;
 
@@ -17,7 +15,6 @@ public class Main {
   private static Scanner sc = new Scanner(System.in);
 
   public static void main(String[] args) {
-    System.out.println("\t".length());
     RoomManager.init();
     Player player = new Player();
     player.setCurrentRoom(RoomManager.startingRoom);
@@ -45,12 +42,11 @@ public class Main {
         }
         parse(collectInput(), player);
         System.out.println();
-      } catch (InvalidDirection e) {
-        System.out.println(e.getMessage());
       } catch (InvalidCommand e) {
         System.out.println(e.getMessage());
       }
-      System.out.println(StringUtils.repeat('-', 80));
+      System.out.println(StringUtils.repeat('-', 10) + "Welcome to" + StringUtils.repeat('-', 60));
+      System.out.println(StringUtils.repeat('-', 19) + "Home Tour" + StringUtils.repeat('-', 52));
     }
   }
 
@@ -69,53 +65,11 @@ public class Main {
     return input.split(" ");
   }
 
-  // TODO: Dependency Inversion Principle
-  private static void parse(String[] command, Player player) throws InvalidDirection, InvalidCommand {
+  private static void parse(String[] command, Player player) throws InvalidCommand {
     if (command.length < 2) {
-      throw new InvalidCommand("Invalid command");
+      throw new InvalidCommand("Invalid command, please read the instruction");
     }
-    switch (command[0].toLowerCase()) {
-      default:
-        break;
-      case "go":
-        player.setCurrentRoom(player.getCurrentRoom().getExit(command[1]));
-        break;
-      case "take":
-        for (Item item : player.getCurrentRoom().getItems()) {
-          if (item.getName().toLowerCase().equals(command[1].toLowerCase())) {
-            player.getCurrentRoom().removeItems(item);
-            player.addToInventory(item);
-            System.out.println("\nYou have taken \"" + item.getName() + "\" from the room!");
-            return;
-          }
-        }
-        throw new InvalidCommand("There is no \"" + command[1] + "\" in the room!");
-      case "view":
-        if ("inventory".startsWith(command[1].toLowerCase())) {
-          List<Item> inv = player.getInventory();
-          System.out.println(StringUtils.repeat('_', 80));
-          System.out.println("|You have:" + StringUtils.repeat(' ', 69) + "|");
-          if (inv.isEmpty()) {
-            System.out.println(StringUtils.prettify("Your inventory is empty."));
-          } else {
-            for (Item item : inv) {
-              int rightSpace = item.getName().length();
-              System.out.println("|\t" + item.getName() + StringUtils.repeat(' ', 71 - rightSpace) + "|");
-            }
-          }
-          System.out.println(StringUtils.repeat('-', 80));
-        }
-        break;
-      case "place":
-        for (Item item : player.getInventory()) {
-          if (item.getName().toLowerCase().equals(command[1].toLowerCase())) {
-            player.removeFromInventory(item);
-            player.getCurrentRoom().addItem(item);
-            System.out.println("\nYou have placed \"" + item.getName() + "\" to the room!");
-            return;
-          }
-        }
-        throw new InvalidCommand("\nThere is no \"" + command[1] + "\" in your inventory!");
-    }
+    CommandBase cmd = CommandBase.getCommand(command[0]);
+    cmd.action(player, command[1]);
   }
 }
