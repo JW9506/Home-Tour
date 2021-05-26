@@ -5,6 +5,9 @@ enum OSType {
 }
 
 public class Utils {
+  private Utils() {
+  }
+
   public static OSType getConsoleType() {
     try {
       Process p = Runtime.getRuntime().exec("uname");
