@@ -3,24 +3,22 @@ package game;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
-import java.util.Scanner;
 
 import command.Command;
 import common.StringUtils;
 import common.Utils;
+import common.g;
 import exceptions.InvalidCommand;
 import fixtures.Item;
 import fixtures.Room;
 
 public class Main {
-  private static Scanner sc = new Scanner(System.in);
-
   public static void main(String[] args) {
     RoomManager.init();
     Player player = new Player();
     player.setCurrentRoom(RoomManager.startingRoom);
 
-    while (true) {
+    while (g.loop.isLoop()) {
       Utils.clearScreen();
       System.out.println(StringUtils.repeat('-', 10) + "Welcome to" + StringUtils.repeat('-', 60));
       System.out.println(StringUtils.repeat('-', 19) + "Home Tour" + StringUtils.repeat('-', 52));
@@ -44,15 +42,16 @@ public class Main {
             System.out.println("\t" + items.get(i).getName());
           }
         }
-        parse(collectInput(), player);
+        System.out.print("\nEnter your action:\n\t");
+        parse(g.collectInput(), player);
       } catch (InvalidCommand e) {
         System.out.println("\n\t\tError: " + e.getMessage() + "\n");
       } finally {
         System.out.println("\nHit Enter to Continue...");
         try {
-          sc.nextLine();
+          g.sc.nextLine();
         } catch (Exception e) {
-          Utils.Exit();
+          g.Exit();
         }
       }
     }
@@ -60,16 +59,6 @@ public class Main {
 
   private static void printRoom(Player player) {
     System.out.println(player.getCurrentRoom().getLongDescription());
-  }
-
-  private static String[] collectInput() {
-    String input = "";
-    try {
-      input = sc.nextLine();
-    } catch (Exception e) {
-      Utils.Exit();
-    }
-    return input.split(" ");
   }
 
   private static void parse(String[] command, Player player) throws InvalidCommand {

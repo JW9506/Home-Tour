@@ -4,7 +4,7 @@ enum OSType {
   Bash, WindowsCMD
 }
 
-public class Utils {
+final public class Utils {
   private Utils() {
   }
 
@@ -34,10 +34,5 @@ public class Utils {
     } catch (Exception e) {
       e.printStackTrace();
     }
-  }
-
-  public static void Exit() {
-    System.out.println("\nThank you for visiting");
-    System.exit(0);
   }
 }

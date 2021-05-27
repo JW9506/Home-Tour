@@ -1,6 +1,9 @@
 package common;
 
-public class StringUtils {
+final public class StringUtils {
+  private StringUtils() {
+  }
+
   public static String repeat(char ch, int length) {
     return new String(new char[length]).replace("\0", String.valueOf(ch)).intern();
   }
