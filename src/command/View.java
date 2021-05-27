@@ -9,8 +9,8 @@ import exceptions.InvalidCommand;
 import fixtures.Item;
 import game.Player;
 
-public class View extends CommandBase {
-  public final static CommandBase instance = new View();
+public class View implements Command {
+  public final static Command instance = new View();
 
   private View() {
   }

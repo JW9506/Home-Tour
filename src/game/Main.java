@@ -5,7 +5,7 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Scanner;
 
-import command.CommandBase;
+import command.Command;
 import common.StringUtils;
 import common.Utils;
 import exceptions.InvalidCommand;
@@ -76,7 +76,7 @@ public class Main {
     if (command.length < 2) {
       throw new InvalidCommand("Invalid command, please read the instruction");
     }
-    CommandBase cmd = CommandBase.getCommand(command[0]);
+    Command cmd = Command.getCommand(command[0]);
     cmd.action(player, command[1]);
   }
 }

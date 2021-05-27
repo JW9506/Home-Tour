@@ -4,8 +4,8 @@ import exceptions.InvalidCommand;
 import fixtures.Item;
 import game.Player;
 
-public class Take extends CommandBase {
-  public final static CommandBase instance = new Take();
+public class Take implements Command {
+  public final static Command instance = new Take();
 
   private Take() {
   }

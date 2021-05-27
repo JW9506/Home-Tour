@@ -4,8 +4,8 @@ import exceptions.InvalidCommand;
 import exceptions.InvalidDirection;
 import game.Player;
 
-public class Go extends CommandBase {
-  public final static CommandBase instance = new Go();
+public class Go implements Command {
+  public final static Command instance = new Go();
 
   private Go() {
   }
