@@ -20,4 +20,4 @@ This is a command-line text-based game similar to the `Colossal Cave Adventure` 
 ***
 ![image](https://i.ibb.co/3Cc2b9D/Screenshot-42.jpg)
 ***
-![image](https://i.ibb.co/vQ2RXcy/Screenshot-43.jpg)
+![image](https://i.ibb.co/G3p8fMf/Screenshot-44.jpg)
