@@ -48,11 +48,7 @@ public class Main {
         System.out.println("\n\t\tError: " + e.getMessage() + "\n");
       } finally {
         System.out.println("\nHit Enter to Continue...");
-        try {
-          g.sc.nextLine();
-        } catch (Exception e) {
-          g.Exit();
-        }
+        g.collectInput();
       }
     }
   }

@@ -2,6 +2,7 @@ package game;
 
 import fixtures.Item;
 import fixtures.Room;
+import fixtures.items.Paper;
 
 public class RoomManager {
   public static Room startingRoom;
@@ -18,7 +19,7 @@ public class RoomManager {
             + "\n" + "The hardwood floor leads west into doorway, next to a staircase that leads up to a second floor."
             + "\n" + "To the north is a small room, where you can see a book.");
 
-    Item paper = new Item("Paper", "a sheet of paper", "this is a sheet of plain paper");
+    Item paper = new Paper("Paper", "a sheet of paper", "this is a sheet of plain paper");
 
     foyer.setExits("north", smallRoom);
     foyer.setExits("south", diningRoom);
