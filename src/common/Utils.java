@@ -8,6 +8,8 @@ public class Utils {
   private Utils() {
   }
 
+  private static OSType osType = getConsoleType();
+
   public static OSType getConsoleType() {
     try {
       Process p = Runtime.getRuntime().exec("uname");
@@ -24,9 +26,9 @@ public class Utils {
 
   public static void clearScreen() {
     try {
-      if (getConsoleType() == OSType.Bash) {
+      if (osType == OSType.Bash) {
         new ProcessBuilder("sh", "-c", "clear").inheritIO().start().waitFor();
-      } else if (getConsoleType() == OSType.WindowsCMD) {
+      } else if (osType == OSType.WindowsCMD) {
         new ProcessBuilder("cmd", "/c", "cls").inheritIO().start().waitFor();
       }
     } catch (Exception e) {
