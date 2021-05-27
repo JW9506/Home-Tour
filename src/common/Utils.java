@@ -35,4 +35,10 @@ final public class Utils {
       e.printStackTrace();
     }
   }
+
+  public static String upperCaseFirstLetter(String str) {
+    char[] strArr = str.toCharArray();
+    strArr[0] &= ~(1 << 5);
+    return new String(strArr).intern();
+  }
 }
