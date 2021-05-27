@@ -5,7 +5,7 @@ import fixtures.Room;
 import fixtures.items.Paper;
 import fixtures.items.Pen;
 
-public class RoomManager {
+final public class RoomManager {
   public static Room startingRoom;
 
   private RoomManager() {
@@ -34,8 +34,7 @@ public class RoomManager {
     bedRoom.addItem(paper);
     foyer.addItem(paper);
     smallRoom.addItem(new Item("Book", "a novel", "this is an interesting novel"));
-    // diningRoom.addItem(new Pen("Pen", "a blue pen", "this is an expensive blue pen"));
-    foyer.addItem(new Pen("Pen", "a blue pen", "this is an expensive blue pen"));
+    diningRoom.addItem(new Pen("Pen", "a blue pen", "this is an expensive blue pen"));
 
     startingRoom = foyer;
   }

@@ -26,7 +26,6 @@ public class Item extends Fixture {
       List<Class<?>> sigType = new ArrayList<>(Collections.nCopies(paramLength, (Class<?>) Object.class));
       mtd = clazz.getMethod("do_" + method, (Class<?>[]) sigType.toArray(new Class<?>[0]));
     } catch (Exception e) {
-      e.printStackTrace();
       throw invalidCommand;
     }
     try {
@@ -65,7 +64,6 @@ public class Item extends Fixture {
       }
       return validMethods;
     } catch (Exception e) {
-      e.printStackTrace();
       throw new InvalidCommand(cls + " is not a valid command");
     }
   }

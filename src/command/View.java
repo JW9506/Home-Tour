@@ -58,31 +58,32 @@ public class View implements Command {
               break;
             }
           }
-        }
-        input = g.collectInput();
-        if (input[0] != null && !input[0].trim().isEmpty()) {
-          Method mtd = null;
-          for (Method method : methods) {
-            if (("do_" + input[0]).toLowerCase().intern().equals(method.getName().toLowerCase().intern())) {
-              mtd = method;
-              break;
-            }
-          }
-          List<Object> hydrateInput = new ArrayList<>();
-          for (int i = 1; i < input.length; ++i) {
-            int j;
-            for (j = 0; j < inv.size(); ++j) {
-              Item item =  inv.get(j);
-              if (item.getName().toLowerCase().intern().equals(input[i].toLowerCase().intern())) {
-                hydrateInput.add(item);
+          System.out.print("\nSelect a specific action:\n\t");
+          input = g.collectInput();
+          if (input[0] != null && !input[0].trim().isEmpty()) {
+            Method mtd = null;
+            for (Method method : methods) {
+              if (("do_" + input[0]).toLowerCase().intern().equals(method.getName().toLowerCase().intern())) {
+                mtd = method;
                 break;
               }
             }
-            if (j == inv.size()) {
-              hydrateInput.add(input[i]);
+            List<Object> hydrateInput = new ArrayList<>();
+            for (int i = 1; i < input.length; ++i) {
+              int j;
+              for (j = 0; j < inv.size(); ++j) {
+                Item item = inv.get(j);
+                if (item.getName().toLowerCase().intern().equals(input[i].toLowerCase().intern())) {
+                  hydrateInput.add(item);
+                  break;
+                }
+              }
+              if (j == inv.size()) {
+                hydrateInput.add(input[i]);
+              }
             }
+            Item.invokeByClsMethod(mtd, selectedItem, hydrateInput.toArray(new Object[0]));
           }
-          Item.invokeByClsMethod(mtd, selectedItem, hydrateInput.toArray(new Object[0]));
         }
       }
     } else {

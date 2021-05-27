@@ -22,6 +22,6 @@ public class Paper extends Item {
   }
 
   public void do_read() {
-    System.out.println("On the book paper it reads:\n" + "\t" + getText());
+    System.out.println("On the paper it reads:\n" + "\t" + getText());
   }
 }
