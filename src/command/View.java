@@ -63,7 +63,7 @@ public class View implements Command {
           if (input[0] != null && !input[0].trim().isEmpty()) {
             Method mtd = null;
             for (Method method : methods) {
-              if (("do_" + input[0]).toLowerCase().intern().equals(method.getName().toLowerCase().intern())) {
+              if (method.getName().toLowerCase().intern().startsWith(("do_" + input[0]).toLowerCase().intern())) {
                 mtd = method;
                 break;
               }
