@@ -18,6 +18,7 @@ public class Paper extends Item {
 
   public void setText(String text) {
     this.text = text;
+    System.out.println("\n\t<Something has been written to the Paper...>");
   }
 
   public void do_read() {
