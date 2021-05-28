@@ -70,6 +70,7 @@ public abstract class Fixture {
     try {
       Method[] methods = this.getClass().getMethods();
       List<Method> validMethods = new ArrayList<>();
+      System.out.println("\t\tAvailable Actions:");
       for (Method m : methods) {
         if (m.getName().startsWith("do_")) {
           validMethods.add(m);
