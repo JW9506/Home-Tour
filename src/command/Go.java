@@ -1,7 +1,10 @@
 package command;
 
+import common.g;
+import exceptions.DoorLockedExcpetion;
 import exceptions.InvalidCommand;
 import exceptions.InvalidDirection;
+import fixtures.Room;
 import game.Player;
 
 public class Go implements Command {
@@ -11,11 +14,17 @@ public class Go implements Command {
   }
 
   @Override
-  public void action(Player player, String entity) throws InvalidCommand {
+  public void action(String entity) throws InvalidCommand {
+    Player player = g.getPlayer();
     try {
-      player.setCurrentRoom(player.getCurrentRoom().getExit(entity));
+      Room room = player.getCurrentRoom().getExit(entity);
+      if (!room.isLocked()) {
+        player.setCurrentRoom(room);
+      } else {
+        throw new DoorLockedExcpetion("Door is locked! Go find a key in the house");
+      }
       System.out.println("\nYou have entered \"" + player.getCurrentRoom().getName() + "\"!");
-    } catch (InvalidDirection e) {
+    } catch (InvalidDirection | DoorLockedExcpetion e) {
       System.out.println("\n\t\tError: " + e.getMessage() + "\n");
     }
   }

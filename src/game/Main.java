@@ -1,22 +1,16 @@
 package game;
 
-import java.util.List;
-import java.util.Map;
-import java.util.Map.Entry;
-
-import command.Command;
 import common.StringUtils;
 import common.Utils;
 import common.g;
 import exceptions.InvalidCommand;
-import fixtures.Item;
 import fixtures.Room;
 
 public class Main {
   public static void main(String[] args) {
     RoomManager.init();
     Player player = new Player();
-    player.setCurrentRoom(RoomManager.startingRoom);
+    RoomManager.initPlayer(player);
 
     while (g.loop.isLoop()) {
       Utils.clearScreen();
@@ -30,20 +24,7 @@ public class Main {
       System.out.println("You're in " + currRoom.getName());
       System.out.println("\n" + "<" + currRoom.getLongDescription() + ">");
       try {
-        Map<String, Room> rooms = currRoom.getExits();
-        System.out.println("\n" + "Exits:");
-        for (Entry<String, Room> e : rooms.entrySet()) {
-          System.out.println("\t" + e.getKey().toUpperCase().intern() + ": " + e.getValue().getName());
-        }
-        List<Item> items = currRoom.getItems();
-        if (!items.isEmpty()) {
-          System.out.println("\n" + "Items in the room:");
-          for (int i = 0; i < items.size(); ++i) {
-            System.out.println("\t" + items.get(i).getName());
-          }
-        }
-        System.out.print("\nEnter your action:\n\t");
-        parse(g.collectInput(), player);
+        g.menuUI();
       } catch (InvalidCommand e) {
         System.out.println("\n\t\tError: " + e.getMessage() + "\n");
       } finally {
@@ -51,17 +32,5 @@ public class Main {
         g.collectInput();
       }
     }
-  }
-
-  private static void printRoom(Player player) {
-    System.out.println(player.getCurrentRoom().getLongDescription());
-  }
-
-  private static void parse(String[] command, Player player) throws InvalidCommand {
-    if (command.length < 2) {
-      throw new InvalidCommand("Invalid command, please read the instruction");
-    }
-    Command cmd = Command.getCommand(command[0]);
-    cmd.action(player, command[1]);
   }
 }

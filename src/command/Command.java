@@ -1,10 +1,9 @@
 package command;
 
 import exceptions.InvalidCommand;
-import game.Player;
 
 public interface Command {
-  public abstract void action(Player player, String entity) throws InvalidCommand;
+  public abstract void action(String entity) throws InvalidCommand;
 
   public static Command getCommand(String command) throws InvalidCommand {
     String _command = command.toLowerCase().intern();

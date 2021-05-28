@@ -1,5 +1,6 @@
 package command;
 
+import common.g;
 import exceptions.InvalidCommand;
 import fixtures.Item;
 import game.Player;
@@ -11,7 +12,8 @@ public class Take implements Command {
   }
 
   @Override
-  public void action(Player player, String entity) throws InvalidCommand {
+  public void action(String entity) throws InvalidCommand {
+    Player player = g.getPlayer();
     for (Item item : player.getCurrentRoom().getItems()) {
       if (item.getName().toLowerCase().intern().equals(entity.toLowerCase().intern())) {
         player.getCurrentRoom().removeItems(item);

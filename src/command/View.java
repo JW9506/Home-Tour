@@ -10,6 +10,7 @@ import common.StringUtils;
 import common.Utils;
 import common.g;
 import exceptions.InvalidCommand;
+import fixtures.Fixture;
 import fixtures.Item;
 import game.Player;
 
@@ -21,6 +22,7 @@ public class View implements Command {
 
   private void inventoryViewHandler(Player player, String entity) throws InvalidCommand {
     List<Item> inv = player.getInventory();
+    List<Fixture> environFixture = player.getCurrentRoom().getEnvironmentFixture();
     List<Item> items = new ArrayList<>();
 
     // Pretty print inventory content
@@ -54,6 +56,7 @@ public class View implements Command {
         input = g.collectInput();
         if (input[0] == null || input[0].trim().isEmpty()) {
           g.loop.setLoop(false);
+          break;
         }
         try {
           methods = Item.availableMethods(Utils.upperCaseFirstLetter(input[0]));
@@ -82,15 +85,26 @@ public class View implements Command {
           }
           List<Object> hydrateInput = new ArrayList<>();
           for (int i = 1; i < input.length; ++i) {
-            int j;
-            for (j = 0; j < inv.size(); ++j) {
+            boolean flag = false;
+            for (int j = 0; j < inv.size(); ++j) {
               Item item = inv.get(j);
               if (item.getName().toLowerCase().intern().equals(input[i].toLowerCase().intern())) {
                 hydrateInput.add(item);
+                flag = true;
                 break;
               }
             }
-            if (j == inv.size()) {
+            if (!flag) {
+              for (int j = 0; j < environFixture.size(); ++j) {
+                Fixture fixture = environFixture.get(j);
+                if (fixture.getName().toLowerCase().intern().startsWith(input[i].toLowerCase().intern())) {
+                  hydrateInput.add(fixture);
+                  flag = true;
+                  break;
+                }
+              }
+            }
+            if (!flag) {
               hydrateInput.add(input[i]);
             }
           }
@@ -101,7 +115,8 @@ public class View implements Command {
   }
 
   @Override
-  public void action(Player player, String entity) throws InvalidCommand {
+  public void action(String entity) throws InvalidCommand {
+    Player player = g.getPlayer();
     if ("inventory".startsWith(entity.toLowerCase().intern())) {
       inventoryViewHandler(player, entity);
     } else {

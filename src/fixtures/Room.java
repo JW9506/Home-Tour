@@ -11,9 +11,32 @@ public class Room extends Fixture {
   private Map<String, Room> exits = new TreeMap<>();
 
   private List<Item> items = new ArrayList<>();
+  private List<Fixture> environmentFixtures = new ArrayList<>();
+  private boolean locked = false;
 
   public Room(String name, String shortDescription, String longDescription) {
     super(name, shortDescription, longDescription);
+  }
+
+  public boolean isLocked() {
+    return locked;
+  }
+
+  public void setLocked(boolean locked) {
+    this.locked = locked;
+  }
+
+  public Room(String name, String shortDescription, String longDescription, boolean locked) {
+    this(name, shortDescription, longDescription);
+    setLocked(locked);
+  }
+
+  public List<Fixture> getEnvironmentFixture() {
+    return environmentFixtures;
+  }
+
+  public void addEnvironmentFixture(Fixture environmentFixture) {
+    environmentFixtures.add(environmentFixture);
   }
 
   public List<Item> getItems() {
