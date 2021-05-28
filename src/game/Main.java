@@ -16,10 +16,11 @@ public class Main {
       Utils.clearScreen();
       System.out.println(StringUtils.repeat('-', 10) + "Welcome to" + StringUtils.repeat('-', 60));
       System.out.println(StringUtils.repeat('-', 19) + "Home Tour" + StringUtils.repeat('-', 52));
-      System.out.println("\t\t\t\t\t\tt[ake]  ITEM");
-      System.out.println("\t\t\t\t\t\tg[o]    DIRECTION");
-      System.out.println("\t\t\t\t\t\tp[lace] ITEM");
-      System.out.println("\t\t\t\t\t\tv[iew]  i[nventory]");
+      System.out.println("\t\t\t\t\t\tt[ake]     <ITEM>");
+      System.out.println("\t\t\t\t\t\tg[o]       <DIRECTION>");
+      System.out.println("\t\t\t\t\t\tp[lace]    <ITEM>");
+      System.out.println("\t\t\t\t\t\ti[nspect]  <ENVIRONMENT FIXTURE>");
+      System.out.println("\t\t\t\t\t\tv[iew]     i[nventory]");
       Room currRoom = player.getCurrentRoom();
       System.out.println("You're in " + currRoom.getName());
       System.out.println("\n" + "<" + currRoom.getLongDescription() + ">");

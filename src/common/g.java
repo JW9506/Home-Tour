@@ -48,7 +48,8 @@ final public class g {
     if (!environment.isEmpty()) {
       System.out.println("\n" + "Other Fixtures in the Room:");
       for (int i = 0; i < environment.size(); ++i) {
-        System.out.println("\t" + environment.get(i).getName());
+        String idx = "(" + String.valueOf((char) ('a' + i)) + ")";
+        System.out.println("\t" + idx + " " + environment.get(i).getName());
       }
     }
     System.out.print("\nEnter your action:\n\t");

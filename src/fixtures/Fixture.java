@@ -43,21 +43,32 @@ public abstract class Fixture {
     this.name = name;
   }
 
-  final static private InvalidCommand invalidCommand = new InvalidCommand(
+  final static public InvalidCommand invalidCommand = new InvalidCommand(
       "Please double check your command is valid,\nor you don't have the necessary items to run the command");
 
   public void invokeByClsMethod(Method mtd, Object[] params) throws InvalidCommand {
     try {
       mtd.invoke(this, params);
     } catch (Exception e) {
+      e.printStackTrace();
       throw invalidCommand;
     }
+  }
+
+  public Method getMethodByName(List<Method> methods, String name) {
+    Method mtd = null;
+    for (Method method : methods) {
+      if (method.getName().toLowerCase().intern().startsWith(("do_" + name).toLowerCase().intern())) {
+        mtd = method;
+        break;
+      }
+    }
+    return mtd;
   }
 
   public List<Method> availableMethods() throws InvalidCommand {
     try {
       Method[] methods = this.getClass().getMethods();
-      System.out.println("\t\tAvailable Actions:");
       List<Method> validMethods = new ArrayList<>();
       for (Method m : methods) {
         if (m.getName().startsWith("do_")) {
@@ -74,7 +85,6 @@ public abstract class Fixture {
       }
       return validMethods;
     } catch (Exception e) {
-      e.printStackTrace();
       throw new InvalidCommand("Unexpected Error");
     }
   }

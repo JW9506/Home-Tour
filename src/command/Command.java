@@ -15,6 +15,8 @@ public interface Command {
       return Place.instance;
     } else if ("view".startsWith(_command)) {
       return View.instance;
+    } else if ("inspect".startsWith(_command)) {
+      return Inspect.instance;
     } else {
       throw new InvalidCommand("Invalid command " + command);
     }

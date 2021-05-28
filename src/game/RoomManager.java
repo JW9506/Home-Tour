@@ -8,6 +8,8 @@ import fixtures.items.Book;
 import fixtures.items.Key;
 import fixtures.items.Paper;
 import fixtures.items.Pen;
+import fixtures.others.LightSwitch;
+import fixtures.rooms.Basement;
 
 final public class RoomManager {
   public static Room startingRoom;
@@ -27,7 +29,7 @@ final public class RoomManager {
     Room foyer = new Room("The Foyer", "a small foyer",
         "The small entryway of a neo-colonial house. A dining room is open to the south, where a piece of paper can be seen."
             + "\n" + "To the north is a small room, where you can see a book.");
-    Room basement = new Room("The Basement", "a big basement", "This is a big basement", true);
+    Room basement = new Basement("The Basement", "a big basement", "This is a big basement", true);
 
     Item paper = new Paper("Paper", "a sheet of paper", "this is a sheet of plain paper");
 
@@ -47,6 +49,7 @@ final public class RoomManager {
     diningRoom.addItem(new Key("Key", "a key", "this is a key to open the basement door"));
     diningRoom
         .addEnvironmentFixture(new BasementDoor("Basement Door", "A door", "this is a door to the basement", basement));
+    basement.addEnvironmentFixture(new LightSwitch("The LightSwitch", "A lightswitch", "this is a lightswitch"));
     startingRoom = foyer;
   }
 }

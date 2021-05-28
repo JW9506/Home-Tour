@@ -64,7 +64,6 @@ public class View implements Command {
           }
         }
         try {
-          // methods = Item.availableMethods(Utils.upperCaseFirstLetter(input[0]));
           methods = selectedItem.availableMethods();
           g.loop.setLoop(false);
         } catch (Exception e) {
@@ -76,12 +75,9 @@ public class View implements Command {
         System.out.print("\nSelect a specific action:\n\t");
         input = g.collectInput();
         if (input[0] != null && !input[0].trim().isEmpty()) {
-          Method mtd = null;
-          for (Method method : methods) {
-            if (method.getName().toLowerCase().intern().startsWith(("do_" + input[0]).toLowerCase().intern())) {
-              mtd = method;
-              break;
-            }
+          Method mtd = selectedItem.getMethodByName(methods, input[0]);
+          if (mtd == null) {
+            throw Fixture.invalidCommand;
           }
           List<Object> hydrateInput = new ArrayList<>();
           for (int i = 1; i < input.length; ++i) {
