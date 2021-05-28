@@ -30,9 +30,7 @@ final public class RoomManager {
     smallRoom.setExits("south", foyer);
     smallRoom.setExits("east", bedRoom);
     bedRoom.setExits("west", smallRoom);
-    bedRoom.addItem(new Item("Table", "a big table", "this is a big table"));
     bedRoom.addItem(paper);
-    foyer.addItem(paper);
     smallRoom.addItem(new Item("Book", "a novel", "this is an interesting novel"));
     diningRoom.addItem(new Pen("Pen", "a blue pen", "this is an expensive blue pen"));
 

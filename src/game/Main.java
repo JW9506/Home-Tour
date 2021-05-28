@@ -28,7 +28,7 @@ public class Main {
       System.out.println("\t\t\t\t\t\tv[iew]  i[nventory]");
       Room currRoom = player.getCurrentRoom();
       System.out.println("You're in " + currRoom.getName());
-      System.out.println("\n" + currRoom.getLongDescription());
+      System.out.println("\n" + "<" + currRoom.getLongDescription() + ">");
       try {
         Map<String, Room> rooms = currRoom.getExits();
         System.out.println("\n" + "Exits:");
