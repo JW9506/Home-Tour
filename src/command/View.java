@@ -7,7 +7,6 @@ import java.util.Map;
 import java.util.Map.Entry;
 
 import common.StringUtils;
-import common.Utils;
 import common.g;
 import exceptions.InvalidCommand;
 import fixtures.Fixture;
@@ -58,8 +57,15 @@ public class View implements Command {
           g.loop.setLoop(false);
           break;
         }
+        for (Item item : items) {
+          if (item.getName().toLowerCase().intern().equals(input[0].toLowerCase().intern())) {
+            selectedItem = item;
+            break;
+          }
+        }
         try {
-          methods = Item.availableMethods(Utils.upperCaseFirstLetter(input[0]));
+          // methods = Item.availableMethods(Utils.upperCaseFirstLetter(input[0]));
+          methods = selectedItem.availableMethods();
           g.loop.setLoop(false);
         } catch (Exception e) {
           System.out.println("\nYou don't have " + "\"" + input[0] + "\"" + " in your inventory!");
@@ -67,12 +73,6 @@ public class View implements Command {
       }
       g.loop.setLoop(true);
       if (input[0] != null && !input[0].trim().isEmpty()) {
-        for (Item item : items) {
-          if (item.getName().toLowerCase().intern().equals(input[0].toLowerCase().intern())) {
-            selectedItem = item;
-            break;
-          }
-        }
         System.out.print("\nSelect a specific action:\n\t");
         input = g.collectInput();
         if (input[0] != null && !input[0].trim().isEmpty()) {
@@ -108,7 +108,7 @@ public class View implements Command {
               hydrateInput.add(input[i]);
             }
           }
-          Item.invokeByClsMethod(mtd, selectedItem, hydrateInput.toArray(new Object[0]));
+          selectedItem.invokeByClsMethod(mtd, hydrateInput.toArray(new Object[0]));
         }
       }
     }
